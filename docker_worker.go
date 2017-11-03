@@ -431,13 +431,13 @@ func (dw *DockerWorker) StartBuildAsync(tailLog bool) (chan bool, error) {
 		if err == nil {
 			os.Stdout.Write([]byte(fmt.Sprintf("[build/%s] Started %s\n", cs.Name, cs.Container.Image)))
 			if cs.Type == BuildContainerType && tailLog {
-				go func(prefix string) {
+				go func(csID, prefix string) {
 					// wait otherwise docker may return a 404
 					<-time.After(1000 * time.Millisecond)
-					if e := dw.docker.TailLogs(cs.ID(), dw.log, prefix); e != nil {
+					if e := dw.docker.TailLogs(csID, dw.log, prefix); e != nil {
 						log.Println("ERR Failed to tail log", e)
 					}
-				}(fmt.Sprintf("[build/%s]", cs.Name))
+				}(cs.ID(), fmt.Sprintf("[build/%s]", cs.Name))
 			}
 			continue
 		}
