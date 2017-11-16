@@ -5,9 +5,9 @@ can be found in [testdata/mold1.yml](../testdata/mold1.yml).
 
 The build configuration is broken up into the following sections:
 
-- Services
-- Build
-- Artifacts/Publish
+- [Services](#services)
+- [Build](#build)
+- [Artifacts/Publish](#artifacts)
 
 This also is representative of the lifecycle the build follows.  Each of the above
 happen in sequential order.
@@ -126,6 +126,8 @@ Dockerfile works can be found [here](https://docs.docker.com/engine/reference/bu
 
 - **tags**: A list of additional image tags to be applied.  The above mentioned environment variables are
 available here to use.
+
+- **context**: A folder in which image build is processed. If your Dockerfile is in subfolder you may add **context** to build in this subfolder instead of building in `.mold.yml` file location
 
 ### Environment Variables
 The following environment variables are available in your builds as well as in `tags` in the `artifacts` section:
