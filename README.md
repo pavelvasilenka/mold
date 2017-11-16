@@ -120,3 +120,19 @@ You can run mold locally or be incorporate it into your CI pipeline and run on y
     - Build image optimization and caching.
 - 0.2.5
     - First official open-source release.
+
+## Known Issues
+
+### Output Delay
+
+This issue appears due to Docker API limits.
+At times the command runs and completes execution before the output and status can even be obtained.
+This is particularly the case when a command is not found or a single command execution completes quickly enough. i.e. before the call to get the status and output is made.
+
+To avoid this a sleep statement can be added as the first command in the build process. Example:
+
+    commands:
+    - sleep 1
+    - mvn test
+
+In the case where mvn exists the sleep is not required.
